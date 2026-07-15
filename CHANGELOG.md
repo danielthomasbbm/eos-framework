@@ -2,6 +2,16 @@
 
 All notable changes to EOS are documented here.
 
+## v22.1.0 — 2026-07-14
+
+### Added
+- **`tools/eos-test` — the falsification harness.** The v22 experiment turned into a reusable rig: any two context variants, any task battery, blind judges, same scorecard (specificity / portability / quality / pollution). Pre-registration enforced in code (refuses to run without hypothesis + criteria; both echoed into results so goalposts can't move). `dryRun` mode returns agent count and token estimate (~45k/agent, measured) with zero spend. Validated by dry run: 8 tasks × 2 judges → 32 agents, ~1.44M tokens, as designed.
+- **`tools/task-battery.default.json`** — the 8 experiment tasks as a starting battery, with instructions to substitute your own.
+- **`tools/eos-test.md`** — usage, cost table, the enforcement discipline, and inherited limitations.
+
+### Changed
+- **Kernel: measured-delta rule (LOCKED).** Kernel changes now ship with a harness result — dry-run estimate first, approved spend, pre-registered criteria, both outcomes published. Version bumps are experiment outcomes.
+
 ## v22.0.0 — 2026-07-14
 
 Evidence release. The falsification test registered in v21.1 was run the same day (docs/experiments/2026-07-14-user-model-falsification.md); v22 is the framework cut to what the results support. Full v21.1 → v22 disposition of every named behavior, per the compression prohibition: docs/v22-behavior-map.md.

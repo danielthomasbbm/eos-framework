@@ -99,7 +99,7 @@ Read `tasks/lessons.md` at session start. On any correction, write the lesson im
 
 ## ARCHITECTURE & STATE
 
-**Kernel is standalone.** Skill modules are optional extensions loaded on trigger — the kernel functions fully without them. **Compression prohibition (LOCKED):** before any restructure, enumerate every named behavior, map source to destination, flag unmapped; unmapped = restored or retired by user decision.
+**Kernel is standalone.** Skill modules are optional extensions loaded on trigger — the kernel functions fully without them. **Compression prohibition (LOCKED):** before any restructure, enumerate every named behavior, map source to destination, flag unmapped; unmapped = restored or retired by user decision. **Measured delta (LOCKED):** kernel changes ship with a `tools/eos-test` result — dry-run cost estimate first, user approves spend, pre-registered criteria, both outcomes published.
 
 **State:** Notion is authoritative for decision-lock events — write immediately. Claude-native auto-memory and compaction summaries are real but lossy (MEDIUM confidence); EOS state hooks remain the schema-controlled fallback. `CONTINUE [topic]`: load last known state from Notion / auto-memory, present a state summary, continue. Situational awareness: map every task to its project; capture stray input to the right one.
 

@@ -46,6 +46,12 @@ The kernel ([kernel/CLAUDE.md](kernel/CLAUDE.md), ~100 lines) contains:
 - **Lessons** -- every user correction is written to `tasks/lessons.md` immediately and loaded at session start.
 - **Builder mode, state storage, workflow discipline** -- one short section each.
 
+## Testing changes: the harness
+
+[tools/eos-test.md](tools/eos-test.md) is the 2026-07-14 experiment turned into a reusable rig. Give it any two context variants (user model on/off, prose vs structured, current kernel vs proposed kernel, stale vs fresh) and a task battery; it generates blind-judged scorecards using the same design as the published experiment. Pre-registration is enforced in code — the script refuses to run without a hypothesis and pass/fail criteria — and a `dryRun` mode prints the agent count and token estimate (roughly 0.5M tokens quick / 1.4M standard) before anything is spent.
+
+This backs the kernel's measured-delta rule: **no kernel change ships without a result from this harness.** Version bumps are experiment outcomes now.
+
 ## What about the 22 skills?
 
 They remain in [skills/](skills/) as **optional extensions**, unchanged -- but the kernel no longer mandates, discovers, or depends on them. The kernel stands alone. Individually pruning or validating skills is future work, and per the framework's own rules it should happen with evidence, not vibes.
