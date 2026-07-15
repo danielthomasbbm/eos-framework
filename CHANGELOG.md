@@ -2,6 +2,21 @@
 
 All notable changes to EOS are documented here.
 
+## v21.1.0 — 2026-07-14
+
+Truth-gate release. Two claims in v21.0.0 failed the framework's own Axiom 2 when audited by the model the framework runs on. Both are corrected rather than defended.
+
+### Changed
+- **Kernel synced with the maintained live version (v21.1-slim).** The published v21.0.0 kernel had drifted 350+ diff lines from the operating kernel (two-axiom restructure, workflow orchestration section, elicitation rule rewrite). The repo kernel is now byte-identical to the live one and gains the v21.1 corrections below.
+- **Mechanism claim corrected (README + kernel USER MODEL).** v21.0.0 claimed displacement came from attention-window ordering — user context placed first dominates downstream generation. Wrong as stated: causal attention means later tokens attend to the whole prefix, no position grants dominance, and the kernel sits behind the platform's own system prompt and tool definitions regardless. The corrected, testable claim: displacement comes from context **specificity**, not position. USER MODEL-first ordering survives as a reading/maintenance convention. Falsification criterion added to README.
+- **Runtime header reframed: self-check protocol, not telemetry.** v21.0.0 said "this is not decoration — each field is a live diagnostic." The values are model-generated estimates with no measuring instrument behind them; presenting them as diagnostics violated the "never fabricate numbers" belief. Function is preserved and stated honestly: the header forces per-response attention to goal convergence, open assumptions, position integrity, and drift. Read trends, not absolute values.
+- **Sim-depth 6 renamed: Monte Carlo → Constraint Sweep.** The model does not run stochastic simulation; it enumerates constraint relaxations in prose. The old name failed Rule 10's noun-swap test. Renamed in README, `eos-lens-simdepth`, `eos-constraint-graph`, and `docs/concepts/simulation-depth.md`. Historical changelog entries left as written.
+- **State Storage Tier C updated (kernel).** Claude Code now ships native auto-memory (`MEMORY.md` + memory files) and compaction-surviving summaries. Tier C is no longer "conversation history only." Noted in kernel Rule 9 and README Known Issues: this overlaps the v21 state hooks, which remain the schema-controlled durable copy.
+- **Kernel size figures corrected** throughout README: ~270 lines / ~3,400 tokens (was stated as ~176 lines / ~2,800 tokens against a kernel that no longer matched).
+
+### Known Issues
+- **Platform absorption.** Claude Code's native memory and compaction summaries will keep eating the state-persistence machinery. The durable core of EOS is the behavioral ruleset (falsification discipline, goal lock, regression lock, noun-swap test), not the plumbing. Future versions should shrink accordingly.
+
 ## v21.0.0 — 2026-04-02
 
 ### Architecture

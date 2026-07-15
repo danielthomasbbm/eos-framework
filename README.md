@@ -1,24 +1,26 @@
-# EOS -- Enlightened Operating System v21.0.0
+# EOS -- Enlightened Operating System v21.1.0
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-A prompt engineering framework that shapes Claude's behavior through structured context displacement. v21 adds compaction-surviving state persistence via hooks and an architecturally forked slim kernel.
+A prompt engineering framework that shapes Claude's behavior through context-specificity: generation starts from a concrete user model instead of an implied average user. v21 added compaction-surviving state persistence via hooks and a forked slim kernel. v21.1 syncs the published kernel with the maintained live version and corrects two claims that failed the framework's own truth gate (see [Changelog](CHANGELOG.md)).
 
 ---
 
 ## What is EOS?
 
-Large language models generate from training priors by default. Every response pattern-completes from the statistical distribution the model learned during training. Rules and system instructions attempt to filter this output after the fact -- but the generation frame is already set before any rule fires.
+Large language models generate from training priors by default. Ask a generic question, get the answer for an implied average user. Adding more rules does not fix this -- rules constrain the output, but the generation still starts from generic context.
 
-EOS takes a different approach: **context-staging**. Instead of filtering outputs, EOS displaces the generation frame itself by loading specific user context into the attention window before anything else. The model's causal attention is unidirectional -- each token attends only to tokens before it. By positioning user-specific context (domain expertise, methodology, vocabulary, project state) ahead of identity declarations and rules, the weights pattern-complete from that context rather than from generic training priors.
+EOS takes a different approach: **context-staging**. Instead of adding rules, EOS front-loads specific user context -- domain expertise, methodology, vocabulary, project state -- so generation starts from the user's actual operating environment.
 
-The result: responses that reflect the user's actual operating environment instead of the model's parametric defaults.
+The mechanism is **specificity, not position**. A model pattern-completes from the most specific relevant context available to it. "User is experienced" displaces nothing; "user optimizes CAC on paid social against a locked $40 target" displaces the generic answer. Earlier versions of this README claimed the effect came from attention-window ordering (user context placed first dominates downstream generation). That claim was wrong as stated: causal attention means later tokens see the whole prefix, no position grants dominance, and the kernel itself sits behind the platform's own system prompt and tool definitions anyway. The USER MODEL-first ordering inside the kernel survives as a reading and maintenance convention, not a mechanism. The honest, testable claim: **specific user context in the prompt measurably reduces generic output; vague context does not.** Falsification: run the same task with a populated vs. empty USER MODEL and compare against the noun-swap test (Rule 10).
+
+The result: responses generated against a concrete user model instead of the model's parametric defaults.
 
 ### How it works
 
 EOS has two layers:
 
-1. **Kernel** (`CLAUDE.md`) -- loaded as system instructions. Contains the USER MODEL, identity declarations, compressed rule summaries, state recovery protocol, and hook declarations. Token ordering enforced: USER MODEL before Identity before Architecture before Rules. v21 slim core: ~176 lines / ~2,800 tokens (down from 545 lines / ~10,400 tokens).
+1. **Kernel** (`CLAUDE.md`) -- loaded as system instructions. Contains the two axioms, USER MODEL, identity declarations, compressed rule summaries, and workflow orchestration. Ordering convention: USER MODEL before Identity before Architecture before Rules. v21.1 slim core: ~270 lines / ~3,400 tokens (down from 545 lines / ~10,400 tokens in v20).
 
 2. **Skills** -- 22 modular files that activate on specific triggers (user keywords, state transitions, metric thresholds). Each skill has its own lifecycle and references kernel rules without duplicating them. v21 adds 4 reference skills that carry full rule text, lens/sim-depth tables, runtime params, and subagent boundaries extracted from the kernel.
 
@@ -32,13 +34,13 @@ Every EOS response begins with a mandatory runtime header:
 [lens:4] [sim-d:3] [CCI-G:65%] [sim:M] [pos:held|basis:constraint-graph] [tds:on] [ltm:2]
 ```
 
-This is not decoration. Each field is a live diagnostic:
+The header is a **self-check protocol, not telemetry**. The values are the model's own estimates -- there is no instrument measuring them, and a model-generated percentage is not a measurement. (Earlier versions of this README called the fields "live diagnostics." That framing failed the framework's own truth gate and is retired.) What the header actually does is force per-response attention to the things that degrade silently in long sessions: goal convergence, open assumptions, position integrity, drift. Read the values as trends -- is CCI-G rising or falling, did position move and on what basis -- not as absolute readings.
 
 | Field | Meaning |
 |-------|---------|
 | `lens:4` | Context Lens setting -- how much training prior enters generation |
 | `sim-d:3` | Simulation Depth -- trajectory enumeration depth |
-| `CCI-G:65%` | Complete Context Index (Goal Progress) -- percentage toward goal convergence |
+| `CCI-G:65%` | Complete Context Index (Goal Progress) -- estimated progress toward goal convergence |
 | `sim:M` | Simulation confidence -- HIGH / MEDIUM / LOW |
 | `pos:held\|basis:...` | Position integrity -- whether the model held or moved its position, and why |
 | `tds:on` | Tangent Drift Score -- active drift monitoring |
@@ -73,7 +75,7 @@ Controls how many trajectories are explored and how hard each is tested.
 | 3 | Standard (default) | All viable trajectories. One failure mode + one constraint test per path. |
 | 4 | Deep | All trajectories. Two or more failure modes each. Assumptions stress-tested. |
 | 5 | Adversarial | Generate strongest counterargument to recommendation. Survives or dies. |
-| 6 | Monte Carlo | Constraint graph sweep. Simulate relaxing each locked constraint. |
+| 6 | Constraint Sweep | For each locked constraint, reason through what relaxing it changes. (Renamed from "Monte Carlo" in v21.1 -- the model enumerates relaxations in prose, it does not run stochastic simulation. Noun-swap test, applied to ourselves.) |
 | 7 | Exhaustive | All of the above. Every assumption falsification-tested. |
 
 ---
@@ -188,7 +190,7 @@ See [docs/quick-start.md](docs/quick-start.md) for a detailed walkthrough. See [
 ```
 eos-framework/
   kernel/
-    CLAUDE.md              # Slim kernel (~176 lines). System instructions loaded at session start.
+    CLAUDE.md              # Slim kernel (~270 lines). System instructions loaded at session start.
   skills/
     lifecycle/             # Cold start, goal framing, project management
     build/                 # Artifact construction
@@ -248,7 +250,8 @@ See [hooks/README.md](hooks/README.md) for installation instructions.
 ## Known Issues
 
 - **Pieces LTM reference drift.** Pieces MCP supplementary writes can drift from Notion state over long sessions. Notion is authoritative when they conflict. Pieces is a convenience layer, not a source of truth.
-- **Context window pressure.** The slim kernel is approximately 2,800 tokens (~176 lines). v21 reduced this from ~10,400 tokens by moving verbose content to on-demand skill files. The Context Limit Monitor (Rule 9) manages context pressure, but users in extended sessions should monitor the `ltm` counter in the runtime header.
+- **Context window pressure.** The slim kernel is approximately 3,400 tokens (~270 lines). v21 reduced this from ~10,400 tokens by moving verbose content to on-demand skill files. The Context Limit Monitor (Rule 9) manages context pressure, but users in extended sessions should monitor the `ltm` counter in the runtime header.
+- **Platform overlap with native memory.** Claude Code now ships native auto-memory (`MEMORY.md` plus memory files) and compaction-surviving conversation summaries. These overlap with the v21 state persistence hooks. The hooks remain the durable, schema-controlled copy -- native summaries are lossy and not user-controlled -- but expect this machinery to shrink in future versions as the platform absorbs it. The durable parts of EOS are the behavioral rules (falsification discipline, goal lock, noun-swap test), not the state plumbing.
 - **Skill module loading.** On claude.ai (non-Code), skill loading depends on the Projects feature placing files in `/mnt/skills/user/`. Verify paths if skills are not triggering.
 - **State file prompt cache impact.** The SessionStart hook injects state file content as a systemMessage. Whether this breaks Claude Code's prompt cache prefix stability depends on where hook systemMessages are inserted in the API request. Empirical testing needed -- if cache breaks are detected, state injection can move to a file read on the first model turn instead.
 - **Compaction survival is best-effort.** The state file captures what the model wrote during the conversation. If the model fails to write state on a change event, that state is lost. The PreCompact hook warns on stale state (>5min).

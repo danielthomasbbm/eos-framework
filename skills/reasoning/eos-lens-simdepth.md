@@ -46,9 +46,9 @@ Second control axis. Lens controls prior displacement (how much convention enter
 | 3 | STANDARD (default) | All viable trajectories enumerated. 1 failure mode + 1 constraint test per path. Fewest assumptions wins. |
 | 4 | DEEP | All trajectories. 2+ failure modes each. Stress-test assumptions. Challenge accepted constraints. |
 | 5 | ADVERSARIAL | All trajectories. Generate strongest counterargument to the recommended path. If recommendation doesn't survive its own counterargument, kill it and re-rank. |
-| 6 | MONTE CARLO | Constraint graph sweep — for each locked constraint, simulate what happens if relaxed. Identify which single constraint relaxation produces largest goal-distance reduction. |
-| 7 | EXHAUSTIVE | Monte Carlo + adversarial + cross-trajectory dependency mapping. Every assumption in every path gets a falsification test. |
+| 6 | CONSTRAINT SWEEP | Constraint graph sweep — for each locked constraint, simulate what happens if relaxed. Identify which single constraint relaxation produces largest goal-distance reduction. |
+| 7 | EXHAUSTIVE | Constraint sweep + adversarial + cross-trajectory dependency mapping. Every assumption in every path gets a falsification test. |
 
 **Interaction:** User says "sim 5" / "depth 7" / "go deeper" / "adversarial" etc.
 
-**Combined control:** `[lens:5, sim-d:6]` = full user-context displacement + Monte Carlo constraint sweep. The two axes are independent — high lens with low sim-depth is fast displacement. Low lens with high sim-depth is deep conventional analysis.
+**Combined control:** `[lens:5, sim-d:6]` = full user-context displacement + constraint sweep. The two axes are independent — high lens with low sim-depth is fast displacement. Low lens with high sim-depth is deep conventional analysis.
