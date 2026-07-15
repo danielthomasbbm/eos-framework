@@ -6,6 +6,8 @@ state: trigger-ready
 description: "Graph-based constraint and decision memory. Replaces linear tracking of locked variables, assumptions, and decisions with a queryable dependency graph. Nodes are variables, assumptions, decisions, and constraints. Edges are typed relationships (depends-on, validates, contradicts, derived-from). Triggers when goal is locked and first variable is locked, or on explicit request. Enables cascade unlocking (Rule 5), dependency-aware simulation (Rule 2), and impact analysis queries. Do NOT trigger before goal lock — graph requires at least one locked variable to initialize."
 ---
 
+> **v22 status: legacy.** This skill predates the v22 evidence release and references machinery the kernel retired (see `docs/v22-behavior-map.md`) — lens/sim-depth axes, CCI scoring, or v21 rule numbering. It still loads as a standalone extension, but using it may reintroduce retired behavior. Revalidate against the v22 kernel before updating `kernel_compat`.
+
 # EOS Constraint Graph — Dependency Memory
 
 **Trigger:** Goal locked AND first variable locked, OR explicit request ("show graph", "what depends on X", "impact analysis").

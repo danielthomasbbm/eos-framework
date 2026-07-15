@@ -101,6 +101,7 @@ function judgePrompt(task, first, second) {
 The user's request: "${task.q}"
 
 The requester's actual situation (for your evaluation only — the assistants may or may not have known any of this): ${ARGS.situation}
+${ARGS.judgeNote ? '\nAdditional evaluation instruction: ' + ARGS.judgeNote + '\n' : ''}
 
 --- RESPONSE 1 ---
 ${first}

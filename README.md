@@ -99,7 +99,7 @@ eos-framework/
 ## Known issues
 
 - **The evidence is thin.** One experiment, 8 tasks, one model family generating and judging. It was enough to cut untested machinery; it is not enough to call anything proven. More runs, more domains, and a non-Claude judge would all strengthen or overturn it.
-- **Skills are unvalidated.** They encode real practices but none has been individually tested. Treat them as a library of drafts.
+- **Skills are unvalidated and all legacy.** None has been individually tested, every one declares a pre-v22 `kernel_compat`, and 14 of 22 reference machinery v22 retired (those carry an in-file `v22 status: legacy` notice — loading one may reintroduce retired behavior). `tools/validate-skills.sh` reports the current state. Treat them as a library of drafts; revalidate with the harness before promoting any to v22.
 - **Native platform memory keeps moving.** Sections of this framework will keep becoming redundant as Claude Code absorbs persistence. That is fine. The durable core is the ruleset, not the plumbing.
 
 ## License

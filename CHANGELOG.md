@@ -2,6 +2,19 @@
 
 All notable changes to EOS are documented here.
 
+## v22.1.1 — 2026-07-14
+
+Skill-layer audit. Prompted by the question "did you review the skills?" — the honest answer was no, and the audit found the skill layer was stale before v22 existed: 17 of 22 skills still declared v20.x `kernel_compat`, and the validator had been silently broken since the kernel dropped its `skill_versions:` line.
+
+### Fixed
+- **`tools/validate-skills.sh` rewritten (v22-aware).** The old script depended on a kernel `skill_versions:` line removed in the v21-slim fork and died silently under `set -e` before printing its own error. New version checks frontmatter, compares `kernel_compat` major to the kernel, greps for v21-retired machinery, and always reports a summary. Current output: 0 ok, 22 legacy, 0 structural.
+
+### Changed
+- **14 skills marked legacy in-file** (`v22 status: legacy` notice after frontmatter): cold-start, goal-framing, project-mgmt, memex, memory-mgmt, report, metacognition, tangent-drift-score, constraint-graph, dimension-ambiguity, lens-simdepth, rules-reference, kernel-updater, runtime-params. Each references retired machinery (lens/sim-depth, CCI, v21 rule numbering); loading one may reintroduce retired behavior. The other 8 are clean of retired references but still declare stale `kernel_compat`.
+- README Known Issues updated to state the skill layer's true condition.
+
+Promotion path for any skill: revalidate content against the v22 kernel, test with `tools/eos-test` where the claim is measurable, then bump `kernel_compat`.
+
 ## v22.1.0 — 2026-07-14
 
 ### Added
