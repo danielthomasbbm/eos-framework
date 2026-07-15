@@ -54,7 +54,11 @@ This backs the kernel's measured-delta rule: **no kernel change ships without a 
 
 ## What about the 22 skills?
 
-They remain in [skills/](skills/) as **optional extensions**, unchanged -- but the kernel no longer mandates, discovers, or depends on them. The kernel stands alone. Individually pruning or validating skills is future work, and per the framework's own rules it should happen with evidence, not vibes.
+The legacy 22 remain in [skills/](skills/) as **optional extensions** -- the kernel no longer mandates, discovers, or depends on them, and 14 carry in-file legacy notices for referencing retired machinery. A content audit (v22.2) found four distinct ideas worth keeping; they are consolidated into the one v22-native skill:
+
+- **[`skills/quality/eos-feedback-loops.md`](skills/quality/eos-feedback-loops.md)** -- feedback loops on the collaboration itself: rejection pattern mining (what you consistently reject reveals unstated constraints), a prediction ledger with accuracy review (does what the model predicts come true?), reversibility tagging, a countable correction ledger, and the invitation-over-extraction probe technique.
+
+Everything else was control machinery, platform-superseded, or generic -- the same verdict the experiment gave the kernel.
 
 ## Quick start
 

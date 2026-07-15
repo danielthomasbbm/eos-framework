@@ -2,6 +2,18 @@
 
 All notable changes to EOS are documented here.
 
+## v22.2.0 — 2026-07-14
+
+Skill content audit and consolidation. The 22 legacy skills were read for substance (not just scanned for stale references, as in v22.1.1). Verdict: four distinct, keepable ideas; the rest control machinery, platform-superseded, or generic.
+
+### Added
+- **`skills/quality/eos-feedback-loops.md`** — the first v22-native skill (kernel_compat v22). Consolidates the four survivors: L1 rejection pattern mining (from eos-contradiction C7), L2 prediction ledger with accuracy review + L3 reversibility tags (from eos-project-mgmt C5/C2), L4 correction-ledger schema with countable cross-session escalation (from eos-metacognition F4), L5 invitation-over-extraction probe technique (from eos-dimension-ambiguity). Plus two standing questions preserved from otherwise-retired files: the feasibility thesis (goal-framing B2b) and the skip test (tangent-drift-score EVR).
+- New ledger files: `tasks/predictions.md` (L2) alongside `tasks/lessons.md` (L4 schema).
+
+### Notes
+- Source skills remain in place as legacy (unchanged since v22.1.1 marking). eos-feedback-loops supersedes their live use; they stay for provenance until individually retired.
+- The audit's common thread, recorded for the record: everything that survived — in the kernel and now in the skills — is a feedback loop; everything cut was control machinery.
+
 ## v22.1.1 — 2026-07-14
 
 Skill-layer audit. Prompted by the question "did you review the skills?" — the honest answer was no, and the audit found the skill layer was stale before v22 existed: 17 of 22 skills still declared v20.x `kernel_compat`, and the validator had been silently broken since the kernel dropped its `skill_versions:` line.
