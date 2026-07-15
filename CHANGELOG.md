@@ -2,6 +2,26 @@
 
 All notable changes to EOS are documented here.
 
+## v22.0.0 — 2026-07-14
+
+Evidence release. The falsification test registered in v21.1 was run the same day (docs/experiments/2026-07-14-user-model-falsification.md); v22 is the framework cut to what the results support. Full v21.1 → v22 disposition of every named behavior, per the compression prohibition: docs/v22-behavior-map.md.
+
+### Evidence
+- **Registered test supported (11/12):** populated USER MODEL beat no context on specificity (7.9 vs 3.3) at no quality cost (8.5 vs 8.0), zero pollution, 0% vs 67% noun-swap portability.
+- **Structured format refuted (14/16):** identical facts as plain prose beat the EOS labeled-field USER MODEL on both specificity and quality.
+
+### Changed
+- **Kernel rewritten: 270 → ~100 lines.** Two axioms, prose USER MODEL, identity, five rules (Goal Lock; Grounding; Contradiction & Position Integrity; Regression Lock; Output Integrity), fact-based header, lessons, builder mode, state, workflow discipline. Kernel now stands alone — no skill dependency.
+- **USER MODEL format: labeled fields → prose**, per the 14/16 result. The old field names survive as an authoring checklist in the template note.
+- **Runtime header rebuilt on stateable facts:** `[goal] [assump:N] [conf] [pos]`. Goal state and position are facts; the assumption count is countable; confidence is a declared mapping from it.
+
+### Retired (all reversible; see behavior map)
+- **Context Lens and Simulation Depth axes** — untested control machinery on a refuted format premise.
+- **CCI / CCI-G percentage** — no instrument behind the number; violated "never fabricate numbers."
+- **Mandatory skill system** — the 22 skills remain in skills/ as optional, individually unvalidated extensions.
+- **Rule 9 context thresholds** — Claude Code compacts and summarizes natively; Notion decision-lock writes continue regardless.
+- **Trajectory-enumeration mandate** — replaced by the recommendation duty (one path, fewest assumptions).
+
 ## v21.1.0 — 2026-07-14
 
 Truth-gate release. Two claims in v21.0.0 failed the framework's own Axiom 2 when audited by the model the framework runs on. Both are corrected rather than defended.
