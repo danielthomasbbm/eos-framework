@@ -1,5 +1,7 @@
 # Quick Start
 
+> **Historical (v20-era setup).** These instructions install the v20/v21 stack (18+ skills, lens/sim-depth controls, the old 7-field header). For current v22 setup — kernel plus the optional eos-feedback-loops skill — use the Quick start in the repo README. Kept for provenance.
+
 Get EOS running in 5 minutes.
 
 ---

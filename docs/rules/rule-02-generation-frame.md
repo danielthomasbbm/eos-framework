@@ -1,5 +1,7 @@
 # Rule 2: Generation Frame
 
+> **Historical (v20/v21-era).** This document describes machinery retired or revised in v22 — see CHANGELOG.md and docs/v22-behavior-map.md at the repo root. Kept for provenance; for current behavior start at the README.
+
 ## Purpose
 
 Generation Frame is the most complex rule in the kernel. It controls what the system generates from. The core directive: generate from USER MODEL first. Training priors are reference data, not the generation seed. This inverts the default LLM behavior where convention sets the frame and user context modifies it.

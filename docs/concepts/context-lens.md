@@ -1,5 +1,7 @@
 # Context Lens
 
+> **Historical (v20/v21-era).** This document describes machinery retired or revised in v22 — see CHANGELOG.md and docs/v22-behavior-map.md at the repo root. Kept for provenance; for current behavior start at the README.
+
 The Context Lens is a user-controlled parameter (1-5) that positions generation between raw training prior output and full user-context displacement. Default: 4.
 
 ## Levels

@@ -2,6 +2,23 @@
 
 All notable changes to EOS are documented here.
 
+## v22.3.0 — 2026-07-15
+
+Full-repo pass. Every file in the repo has now been read end-to-end (previous releases were change-driven — files were read when touched). Findings and corrections:
+
+### Fixed
+- **`hooks-settings.json` never installed the state hooks.** It only wired the three PreToolUse safety hooks; the PreCompact/SessionStart/SessionEnd hooks that headline v21 were absent, so a user following the documented install never got them. All six now wired.
+- **`docs/` contradicted v22 in place.** `architecture.md` presented the refuted attention-ordering theory as established mechanism; `quick-start.md` and `installation.md` install the v20 stack ("all 18 skills should report OK", lens/sim controls, the old header); the 10 rule docs and 4 concept docs describe retired machinery. All 18 files now carry historical banners — `architecture.md`'s banner names exactly which claims were refuted and which (displacement-vs-suppression, attractor-basin naming) remain untested hypotheses.
+- **`CONTRIBUTING.md` updated** — measured-delta rule added, token-ordering demoted from mechanism to convention, dead `skill_versions` registry reference removed, v22 skill standards stated.
+
+### Changed
+- **eos-multi-agent verdict revised; Phases 3.5–4.5 extracted as `eos-feedback-loops` L6.** The v22.2.0 changelog called eos-multi-agent platform-superseded. Reading all 440 lines shows that is true for its orchestration mechanics (spawn templates, dollar budgets, loop detection) but wrong for its epistemic layer: output-as-data, cross-agent contradiction detection, and the reconciliation audit (synthesis claims must trace to agent findings; synthesis confidence capped at the minimum constituent confidence) are feedback loops, and they now live in eos-feedback-loops L6.
+- **Two v22.2.0 skill verdicts refined on full read:** eos-report is not "generic" — it is a competent synthesis skeleton tightly coupled to retired v21 state (verdict: legacy stands, reason corrected). eos-memory-mgmt M1.1 ("load deferred MCP tools before tier detection — passive inventory checks falsely classify Tier C") is a correct and non-obvious operational insight worth preserving when that skill is ever revalidated.
+
+### Audited, no change needed
+- All six hook scripts do what their documentation claims. Scope notes added to hooks/README: the Write/Edit guards don't intercept Bash-driven file mutations; state hooks require python3 on PATH.
+- LICENSE (Apache 2.0), .gitignore, examples/ — consistent; `examples/memory/feedback_prior_dominance.md` still teaches the v20 framing and inherits the docs banner caveat by reference.
+
 ## v22.2.0 — 2026-07-14
 
 Skill content audit and consolidation. The 22 legacy skills were read for substance (not just scanned for stale references, as in v22.1.1). Verdict: four distinct, keepable ideas; the rest control machinery, platform-superseded, or generic.

@@ -1,5 +1,7 @@
 # Architecture
 
+> **Historical (v20-era) — mechanism claims refuted.** The attention-ordering theory below ("earlier context exerts stronger influence"; token ordering as mechanism) was tested 2026-07-14 and did not survive: the supported claim is context *specificity*, and plain prose beat the structured USER MODEL format 14/16 (see docs/experiments/2026-07-14-user-model-falsification.md). The displacement-vs-suppression framing and the attractor-basin naming mechanic remain untested hypotheses, not established mechanics. Kept for provenance.
+
 EOS v20.1.0 architectural philosophy and mechanical design.
 
 ---

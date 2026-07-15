@@ -9,6 +9,11 @@ Claude Code [hooks](https://code.claude.com/docs/en/hooks) are shell scripts tha
 | `credential-guard.sh` | PreToolUse | Blocks Write/Edit on `.env`, credential files, private keys |
 | `file-backup.sh` | PreToolUse | Creates timestamped backup before any file is modified |
 | `search-year-fix.sh` | PreToolUse | Appends current year to web searches for fresh results |
+| `eos-precompact.sh` | PreCompact | Backs up the EOS state file before context compaction; warns on stale state (state hooks require `python3` on PATH) |
+| `eos-session-start.sh` | SessionStart | Injects state file content on session start / post-compaction reload |
+| `eos-session-end.sh` | SessionEnd | Final state backup on session close |
+
+Scope notes: `credential-guard.sh` and `file-backup.sh` only intercept the Write/Edit tools — file mutations made through Bash commands bypass both. Since v22, Claude Code's native auto-memory and compaction summaries overlap the three state hooks; they remain the schema-controlled copy.
 
 ## Installation
 

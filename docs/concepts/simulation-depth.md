@@ -1,5 +1,7 @@
 # Simulation Depth
 
+> **Historical (v20/v21-era).** This document describes machinery retired or revised in v22 — see CHANGELOG.md and docs/v22-behavior-map.md at the repo root. Kept for provenance; for current behavior start at the README.
+
 Simulation Depth is the second control axis (1-7), independent of Context Lens. It controls how many trajectories are explored and how aggressively each is tested. Default: 3.
 
 ## Levels
